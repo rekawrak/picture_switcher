@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Картинки</title>
+    <link rel="stylesheet" href="styles/image.css">
+</head>
+
+<body>
+    <img id="image" src="assets/image1.jpg">
+
+    <script>
+        function changeImage() {
+            var image = document.getElementById('image');
+            var currentSrc = image.src;
+            var imageName = currentSrc.substring(currentSrc.lastIndexOf('/') + 1);
+
+            if (imageName === 'image1.jpg') {
+                image.src = 'assets/image2.jpg';
+            } else if (imageName === 'image2.jpg') {
+                image.src = 'assets/image3.jpg';
+            } else if (imageName === 'image3.jpg') {
+                image.src = 'assets/image1.jpg';
+            }
+        }
+
+        setInterval(() => {
+            fetch('http://172.20.10.3:5000/check-image')
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'change') {
+                        changeImage();
+                    }
+                });
+        }, 1000); 
+    </script>
+</body>
+
+</html>
