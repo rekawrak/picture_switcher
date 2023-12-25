@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Кнопка</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400&display=swap">
+    <link rel="stylesheet" href="styles/button.css">
+</head>
+
+<body>
+    <div class="container">
+    <h1 class="heading">Смена времён года в ДВФУ</h1>
+    <button onclick="changeImage()">Поменять сезон</button>
+    <div class="popup" id="popup">
+        Сезон изменился!
+    </div>
+</div>
+
+    <script>
+        function changeImage() {
+            fetch('http://172.20.10.3:5000/change-image')
+                .then(response => {
+                    if (response.ok) {
+                        showPopup();
+                    } else {
+                        alert('Не удалось изменить сезон');
+                    }
+                })
+                .catch(error => {
+                    alert('Произошла ошибка. Попробуйте еще раз');
+                    console.error(error);
+                });
+        }
+
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'flex';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
